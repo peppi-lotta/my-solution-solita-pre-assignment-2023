@@ -1,0 +1,48 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    width: 100%;
+    right: 0;
+    top: 0;
+    letter-spacing: 3px;
+    justify-content: space-between;
+
+    .navigation {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+        align-items: center;
+        margin-right: 50px;
+
+        .menuItems {
+            margin-left: 50px;
+            display: inline-block;
+            color: #000;
+            text-decoration: none;
+
+            :hover {
+                color: gray;
+            }
+        }
+    }
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    height: fit-content;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.logo {
+    height: fit-content;
+    display: flex;
+    margin-left: 20px;
+    letter-spacing: 10px;
+    flex-direction: row;
+}
