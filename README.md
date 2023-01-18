@@ -1,7 +1,4 @@
 # my-solution-solita-pre-assignment-2023
-my-solution-solita-pre-assignment-2023
-
-# my-solution-solita-pre-assignment-2023
 
 Working based on this assignment:
 https://github.com/solita/dev-academy-2023-exercise
