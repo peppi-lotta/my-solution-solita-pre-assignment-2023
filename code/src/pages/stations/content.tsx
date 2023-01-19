@@ -42,11 +42,24 @@ export default function Content() {
             <form>
                 <input type="text" value={value} onChange={onChange} />
             </form>
-            <div className={styles.display_data}>
-                {stationsData.map((station) => (
-                    <p>{station.name_fi}</p>
-                ))}
-            </div>
+            <table className={styles.styled_table}>
+                <thead>
+                    <tr>
+                        <th>Pysäkin nimi</th>
+                        <th>Osoite</th>
+                        <th>Kapasiteetti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {stationsData.map((station) => (
+                        <tr>
+                            <td>{station.name_fi}</td>
+                            <td>{station.address_fi}</td>
+                            <td>{station.capacity}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }
