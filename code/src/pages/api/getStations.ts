@@ -28,7 +28,7 @@ export default async function getSations(req: NextApiRequest, res: NextApiRespon
     const page = 3;
 
     const [results] = await c.execute(`SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`);
-    c.end();
+    //c.end();
     res.status(200).json({ results });
   } catch (error) {
     console.log(error)
