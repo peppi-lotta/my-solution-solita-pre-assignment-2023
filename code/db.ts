@@ -7,10 +7,10 @@ interface QueryOptions {
 
 export async function query(options: QueryOptions) {
     const connection = await mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'weqrok-syxpe4-hIrkam',
-        database: 'solita_pre_assignmentdb',
+        host: process.env.HOST,
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE,
     });
     try {    
         const results = await connection.execute(options.query, options.values || []);

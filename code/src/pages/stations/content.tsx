@@ -31,7 +31,6 @@ export default function Content() {
 
     useEffect(() => {
         async function getStations() {
-            console.log("Inside get");
             const url = 'http://localhost:3000/api/getStations';
             const postData = {
                 method: "Post",
@@ -71,7 +70,7 @@ export default function Content() {
                             <td>{station.name_fi}</td>
                             <td>{station.address_fi}</td>
                             <td>{station.capacity}</td>
-                            <td><a><button className={styles.basic_btn} type="button">Katso yksityiskohdat</button></a></td>
+                            <td><a href={"http://localhost:3000/station/" + station.id}><button className={styles.basic_btn} type="button">Katso yksityiskohdat</button></a></td>
                         </tr>
                     ))}
                 </tbody>

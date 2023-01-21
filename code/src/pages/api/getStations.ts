@@ -6,7 +6,7 @@ interface QueryOptions {
   values?: any[];
 }
 
-export default async function getSations(req: NextApiRequest, res: NextApiResponse<Stations>) {
+export default async function getSations(req: NextApiRequest, res: NextApiResponse) {
   try {
     const pageSize = 10;
     const page = req.body.page;
