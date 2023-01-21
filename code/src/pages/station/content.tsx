@@ -1,11 +1,7 @@
 import styles from '../../styles/layout.module.scss'
 import { useEffect, useState } from 'react';
 import React from 'react';
-
-interface Props {
-    id: number;
-}
-
+import { useRouter } from 'next/router';
 interface Station {
     id: number;
     name_fi: string;
@@ -21,11 +17,15 @@ interface Station {
     y_cord: number;
 }
 
-const Content: React.FC<Props> = ({ id }) => {
 
-    const [stationData, setStationData] = useState<Station>();
+export default function Content() {
+    
+    const router = useRouter();
+    const { id } = router.query;
+    const [stationData, setStationData] = useState<Station[]>([]);
 
     useEffect(() => {
+
         async function getStation() {
             const url = 'http://localhost:3000/api/getStation';
             const postData = {
@@ -37,19 +37,26 @@ const Content: React.FC<Props> = ({ id }) => {
             }
             const res = await fetch(url, postData);
             const data = await res.json();
+            
             const station: Station = data.results;
+            const stationsDataList = Object.entries(station).map(([id, station]) => ({ id, ...station }));
 
-            const stationDataList = Object.entries(station).map(([id, station]) => ({ id, ...station }));
-            setStationData(stationDataList);
+            setStationData(stationsDataList);
         }
+        getStation();
+    }, [router.query.id, router.isReady]);
 
-        //getStation();
-        console.log(stationData);
-    },[]);
-
-    return(
-        <div>Hello</div>
-    );
+    console.log("stationData");
+    console.log(stationData);
+    return (
+        <div className={styles.container}>
+          {stationData.map((station) => {
+            return (
+              <div key={station.id}>
+                {station.name_fi}
+              </div>
+            );
+          })}
+        </div>
+      );
 }
-
-export default Content;
