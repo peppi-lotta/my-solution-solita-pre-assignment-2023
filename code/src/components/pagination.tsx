@@ -1,7 +1,15 @@
 import styles from '../styles/layout.module.scss';
+import React from 'react';
 
-const Pagination = ({ items, pageSize, currentPage, onPageChange }) => {
-    const pagesCount = Math.ceil(items / pageSize); // 100/10
+interface Props {
+    items: number;
+    pageSize: number;
+    currentPage: number;
+    onPageChange: (page: number) => void;
+}
+
+const Pagination: React.FC<Props> = ({ items, pageSize, currentPage, onPageChange }) => {
+    const pagesCount = Math.ceil(items / pageSize);
 
     if (pagesCount === 1) return null;
     const allPages = Array.from({ length: pagesCount }, (_, i) => i + 1);

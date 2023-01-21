@@ -1,6 +1,6 @@
 import styles from '../../styles/layout.module.scss'
 import React, { useState, useEffect } from 'react';
-import Pagination from '../../components/pagination';
+import Pagination from '@/components/pagination';
 
 interface Station {
     id: number;
