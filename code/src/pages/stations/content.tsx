@@ -18,9 +18,8 @@ interface Station {
 }
 
 export default function Content() {
+
     const [stationsData, setStationsData] = useState<Station[]>([]);
-    const [value, setValue] = useState('');
-    //const [page, setPage] = useState(1);
 
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 10;
@@ -31,10 +30,17 @@ export default function Content() {
     const items_length = 400;
 
     useEffect(() => {
-        console.log('Haloo');
         async function getStations() {
+            console.log("Inside get");
             const url = 'http://localhost:3000/api/getStations';
-            const res = await fetch(url);
+            const postData = {
+                method: "Post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    page: currentPage
+                }),
+            }
+            const res = await fetch(url, postData);
             const data = await res.json();
             const stations: Station[] = data.results;
 
@@ -43,15 +49,13 @@ export default function Content() {
         }
 
         getStations();
+    }, [currentPage]);
 
-    }, [value]);
-    const onChange = ({ target }) => setValue(target.value);
+
+
     console.log(currentPage);
     return (
         <div className={styles.wrap}>
-            <form>
-                <input type="text" value={value} onChange={onChange} />
-            </form>
             <table className={styles.styled_table}>
                 <thead>
                     <tr>

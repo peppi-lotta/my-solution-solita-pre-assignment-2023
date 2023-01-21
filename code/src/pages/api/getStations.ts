@@ -27,10 +27,8 @@ interface QueryOptions {
 
 export default async function getSations(req: NextApiRequest, res: NextApiResponse<Stations>) {
   try {
-
     const pageSize = 10;
-    const page = 5;
-    const values = [];
+    const page = req.body.page;
 
     const sqlQuery: QueryOptions = {
       query: `SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
