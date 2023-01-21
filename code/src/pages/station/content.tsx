@@ -2,6 +2,9 @@ import styles from '../../styles/layout.module.scss'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
+import Map from "../../components/map";
+
+
 interface Station {
   id: number;
   name_fi: string;
@@ -53,6 +56,7 @@ export default function Content() {
   return (
     <div className={styles.container}>
       {station?.name_fi}
+      <Map />
     </div>
   );
 }
