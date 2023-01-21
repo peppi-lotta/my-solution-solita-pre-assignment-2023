@@ -131,3 +131,21 @@
         background-color: #006450;
     }
 }
+
+.basic_btn {
+    display: flex;
+    border-radius: 0.5rem;
+    border: solid #006450 2px;
+    background-color: #009879;
+    margin: 0 5px;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    width: fit-content;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: white;
+}
+.basic_btn:hover {
+    background-color: #006450;
+}

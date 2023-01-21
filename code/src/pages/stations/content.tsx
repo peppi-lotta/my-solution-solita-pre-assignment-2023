@@ -62,6 +62,7 @@ export default function Content() {
                         <th>Pysäkin nimi</th>
                         <th>Osoite</th>
                         <th>Kapasiteetti</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,6 +71,7 @@ export default function Content() {
                             <td>{station.name_fi}</td>
                             <td>{station.address_fi}</td>
                             <td>{station.capacity}</td>
+                            <td><a><button className={styles.basic_btn} type="button">Katso yksityiskohdat</button></a></td>
                         </tr>
                     ))}
                 </tbody>
