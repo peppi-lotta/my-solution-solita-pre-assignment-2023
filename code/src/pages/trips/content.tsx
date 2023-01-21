@@ -10,6 +10,8 @@ interface Trip {
     end_location_id: number;
     duration: number;
     distance: number;
+    start_name_fi: string;
+    end_name_fi: string;
 }
 
 
@@ -47,16 +49,12 @@ export default function Content() {
         gettrips();
     }, [currentPage]);
 
-
-
-    console.log(currentPage);
+    console.log(tripsData);
     return (
         <div className={styles.wrap}>
             <table className={styles.styled_table}>
                 <thead>
                     <tr>
-                        <th>Aloitusaika</th>
-                        <th>Lopetusaika</th>
                         <th>Lähtöpaikka</th>
                         <th>Lopetuspaikka</th>
                         <th>Kesto minuuteissa</th>
@@ -66,10 +64,8 @@ export default function Content() {
                 <tbody>
                     {tripsData.map((trip) => (
                         <tr>
-                            <td>{trip.start_time}</td>
-                            <td>{trip.end_time}</td>
-                            <td>{trip.start_locatin_id}</td>
-                            <td>{trip.end_location_id}</td>
+                            <td>{trip.start_name_fi}</td>
+                            <td>{trip.end_name_fi}</td>
                             <td>{(Math.round(trip.duration/60)).toFixed(0)}</td>
                             <td>{trip.distance/1000}</td>
                         </tr>

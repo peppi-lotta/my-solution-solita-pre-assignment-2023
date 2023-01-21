@@ -8,11 +8,11 @@ interface QueryOptions {
 
 export default async function getSations(req: NextApiRequest, res: NextApiResponse<Stations>) {
   try {
-    const pageSize = 10;
+    const pageSize = 50;
     const page = req.body.page;
 
     const sqlQuery: QueryOptions = {
-      query: `SELECT * FROM trips LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
+      query: `SELECT t.*, ss.name_fi AS start_name_fi, es.name_fi AS end_name_fi FROM trips AS t LEFT JOIN stations AS ss ON t.start_locatin_id = ss.id  LEFT JOIN stations AS es ON t.end_location_id = es.id LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
       values: []
     }
 
