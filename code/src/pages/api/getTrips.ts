@@ -1,30 +1,23 @@
-
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connection } from '../../../db';
+import { query } from '../../../db';
 
-interface Trip {
-  id: number;
-  start_time: string;
-  end_time: string;
-  start_location_id: number;
-  end_location_id: number;
-  duration: string;
-  distance: number;
+interface QueryOptions {
+  query: string;
+  values?: any[];
 }
 
-interface Trips {
-  results: Trip[];
-}
-
-export default async function getTrips(req: NextApiRequest, res: NextApiResponse<Trips>) {
+export default async function getSations(req: NextApiRequest, res: NextApiResponse<Stations>) {
   try {
-    const c = await connection;
-
     const pageSize = 10;
-    const page = 3;
+    const page = req.body.page;
 
-    const [results] = await c.execute(`SELECT * FROM trips LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`);
-    c.end();
+    const sqlQuery: QueryOptions = {
+      query: `SELECT * FROM trips LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
+      values: []
+    }
+
+    const [results] = await query(sqlQuery);
+
     res.status(200).json({ results });
   } catch (error) {
     console.log(error)

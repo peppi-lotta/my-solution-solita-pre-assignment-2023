@@ -1,12 +1,87 @@
 import styles from '../../styles/layout.module.scss'
+import React, { useState, useEffect } from 'react';
+import Pagination from '@/components/pagination';
+
+interface Trip {
+    id: number;
+    start_time: string;
+    end_time: string;
+    start_locatin_id: number;
+    end_location_id: number;
+    duration: number;
+    distance: number;
+}
 
 
 export default function Content() {
+
+    const [tripsData, settripsData] = useState<Trip[]>([]);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
+
+    const onPageChange = (page) => {
+        setCurrentPage(page);
+    };
+    const items_length = 400;
+
+    useEffect(() => {
+        async function gettrips() {
+            console.log("Inside get");
+            const url = 'http://localhost:3000/api/getTrips';
+            const postData = {
+                method: "Post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    page: currentPage
+                }),
+            }
+            const res = await fetch(url, postData);
+            const data = await res.json();
+            const trips: Trip[] = data.results;
+
+            const tripsDataList = Object.entries(trips).map(([id, trip]) => ({ id, ...trip }));
+            settripsData(tripsDataList);
+        }
+
+        gettrips();
+    }, [currentPage]);
+
+
+
+    console.log(currentPage);
     return (
         <div className={styles.wrap}>
-            <div className={styles.display_data}>
-                Haloo
-            </div>
+            <table className={styles.styled_table}>
+                <thead>
+                    <tr>
+                        <th>Aloitusaika</th>
+                        <th>Lopetusaika</th>
+                        <th>Lähtöpaikka</th>
+                        <th>Lopetuspaikka</th>
+                        <th>Kesto minuuteissa</th>
+                        <th>Etäisyys kilometreissä</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tripsData.map((trip) => (
+                        <tr>
+                            <td>{trip.start_time}</td>
+                            <td>{trip.end_time}</td>
+                            <td>{trip.start_locatin_id}</td>
+                            <td>{trip.end_location_id}</td>
+                            <td>{(Math.round(trip.duration/60)).toFixed(0)}</td>
+                            <td>{trip.distance/1000}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <Pagination
+                items={items_length}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                onPageChange={onPageChange}
+            />
         </div>
     );
 }
