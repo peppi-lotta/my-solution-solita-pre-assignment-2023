@@ -1,5 +1,6 @@
 import styles from '../../styles/layout.module.scss'
 import React, { useState, useEffect } from 'react';
+import Pagination from '../../components/pagination';
 
 interface Station {
     id: number;
@@ -19,14 +20,23 @@ interface Station {
 export default function Content() {
     const [stationsData, setStationsData] = useState<Station[]>([]);
     const [value, setValue] = useState('');
+    //const [page, setPage] = useState(1);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 10;
+
+    const onPageChange = (page) => {
+        setCurrentPage(page);
+    };
+    const items_length = 400;
 
     useEffect(() => {
         console.log('Haloo');
         async function getStations() {
-            const res = await fetch('http://localhost:3000/api/getStations');
+            const url = 'http://localhost:3000/api/getStations';
+            const res = await fetch(url);
             const data = await res.json();
             const stations: Station[] = data.results;
-            console.log(stations);
 
             const stationsDataList = Object.entries(stations).map(([id, station]) => ({ id, ...station }));
             setStationsData(stationsDataList);
@@ -36,7 +46,7 @@ export default function Content() {
 
     }, [value]);
     const onChange = ({ target }) => setValue(target.value);
-
+    console.log(currentPage);
     return (
         <div className={styles.wrap}>
             <form>
@@ -60,6 +70,12 @@ export default function Content() {
                     ))}
                 </tbody>
             </table>
+            <Pagination
+                items={items_length}
+                currentPage={currentPage}
+                pageSize={pageSize}
+                onPageChange={onPageChange}
+            />
         </div>
     );
 }

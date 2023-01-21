@@ -82,11 +82,52 @@
     tbody tr:nth-of-type(even) {
         background-color: #f3f3f3;
     }
+
     tbody tr:nth-of-type(odd) {
         background-color: #aaccc5;
     }
 
     tbody tr:last-of-type {
         border-bottom: 2px solid #009879;
+    }
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+
+    a {
+        cursor: pointer;
+        color: white;
+        font-size: large;
+    }
+
+
+    li {
+        display: flex;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        border: none;
+        height: 45px;
+        width: 45px;
+        background-color: #009879;
+        margin: 0 5px;
+        justify-content: center;
+        align-items: center;
+        font-size: large;
+    }
+    .text {
+        width: fit-content;
+        padding: 0 5px;
+    }
+    .pageItem:hover {
+        background-color: #006450;
+    }
+
+    .pageItemActive {
+        background-color: #006450;
     }
 }
