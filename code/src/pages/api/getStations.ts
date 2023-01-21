@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connection } from '../../../db';
+import { query } from '../../../db';
 
 interface Station {
   id: number;
@@ -20,15 +20,25 @@ interface Stations {
   results: Station[];
 }
 
+interface QueryOptions {
+  query: string;
+  values?: any[];
+}
+
 export default async function getSations(req: NextApiRequest, res: NextApiResponse<Stations>) {
   try {
-    const c = await connection;
 
     const pageSize = 10;
-    const page = 3;
+    const page = 5;
+    const values = [];
 
-    const [results] = await c.execute(`SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`);
-    //c.end();
+    const sqlQuery: QueryOptions = {
+      query: `SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
+      values: []
+    }
+
+    const [results] = await query(sqlQuery);
+
     res.status(200).json({ results });
   } catch (error) {
     console.log(error)
