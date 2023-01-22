@@ -1,38 +1,19 @@
-import { useEffect, useState } from 'react';
 import { Icon } from 'leaflet';
 import { Marker } from 'react-leaflet';
 
-interface Train {
-  trainNumber: string;
-  location : any;
-}
-
-interface Trains {
-  [id: string]: Omit<Train, 'id'> & { id?: string };
+interface Coordinates {
+  long: number;
+  lat: number;
 }
 
 export const MarkerLayer = () => {
-  const [trainData, setTrainData] = useState<Train[]>([]);
 
-  useEffect(() => {
-    async function fetchTrainData() {
-      const res = await fetch('https://rata.digitraffic.fi/api/v1/train-locations/latest');
-      const data = await res.json();
-      const trains: Trains = data;
-
-      const trainDataList = Object.entries(trains).map(([number, train]) => ({ number, ...train }));
-      setTrainData(trainDataList);
-    }
-
-    const interval = setInterval(() => {
-      fetchTrainData();
-    }, 3000);
-
-    return () => clearInterval(interval);
-  });
-
+  const coordinates: Coordinates = {
+    long: 60.4518,
+    lat: 22.2666
+  };
   const pinIcon = new Icon({
-    iconUrl: '/juna.png',
+    iconUrl: '/location-pin.png',
     iconSize: [55, 55],
     iconAnchor: [24, 48],
     popupAnchor: [0, -48],
@@ -40,9 +21,7 @@ export const MarkerLayer = () => {
 
   return (
     <>
-      {trainData.map((train) => (
-        <Marker key={train.trainNumber} position={[train.location.coordinates[1], train.location.coordinates[0]]} icon={pinIcon} />
-      ))}
+      <Marker position={[60.4518, 22.2666]} icon={pinIcon} />
     </>
   );
 };

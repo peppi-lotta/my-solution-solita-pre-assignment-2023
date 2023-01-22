@@ -54,7 +54,37 @@ export default function Content() {
   console.log("stationData");
   console.log(station);
   return (
-    <div className={styles.container}>
+    <div className={styles.wrap}>
+      <table className={styles.styled_table}>
+        <thead>
+          <tr>
+            <th>Aseman tiedot:</th>
+            <th>{station?.name_fi}/{station?.name_sw}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Osoite (Suomi)</td>
+            <td>{station?.address_fi}</td>
+          </tr>
+          <tr>
+            <td>Osoite (Ruotsi)</td>
+            <td>{station?.address_sw}</td>
+          </tr>
+          <tr>
+            <td>Kaapasiteetti</td>
+            <td>{station?.capacity}</td>
+          </tr>
+          <tr>
+            <td>Matkoja aloitetty täältä yhteensä</td>
+            <td>{station?.capacity}</td>
+          </tr>
+          <tr>
+            <td>Matkoja lopetettu tänne yhteensä</td>
+            <td>{station?.capacity}</td>
+          </tr>
+        </tbody>
+      </table>
       {station?.name_fi}
       <Map />
     </div>
