@@ -55,32 +55,34 @@ export default function Content() {
     console.log(currentPage);
     return (
         <div className={styles.wrap}>
-            <table className={styles.styled_table}>
-                <thead>
-                    <tr>
-                        <th>Pysäkin nimi</th>
-                        <th>Osoite</th>
-                        <th>Kapasiteetti</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {stationsData.map((station) => (
+            <div className={styles.table_view}>
+                <table className={styles.styled_table}>
+                    <thead>
                         <tr>
-                            <td>{station.name_fi}</td>
-                            <td>{station.address_fi}</td>
-                            <td>{station.capacity}</td>
-                            <td><a href={"http://localhost:3000/station/" + station.id}><button className={styles.basic_btn} type="button">Katso yksityiskohdat</button></a></td>
+                            <th>Pysäkin nimi</th>
+                            <th>Osoite</th>
+                            <th>Kapasiteetti</th>
+                            <th></th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <Pagination
-                items={items_length}
-                currentPage={currentPage}
-                pageSize={pageSize}
-                onPageChange={onPageChange}
-            />
+                    </thead>
+                    <tbody>
+                        {stationsData.map((station) => (
+                            <tr>
+                                <td>{station.name_fi}</td>
+                                <td>{station.address_fi}</td>
+                                <td>{station.capacity}</td>
+                                <td><a href={"http://localhost:3000/station/" + station.id}><button className={styles.basic_btn} type="button">Katso yksityiskohdat</button></a></td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <Pagination
+                    items={items_length}
+                    currentPage={currentPage}
+                    pageSize={pageSize}
+                    onPageChange={onPageChange}
+                />
+            </div>
         </div>
     );
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
-import { lchown } from 'fs';
+import { getJSDocAugmentsTag } from 'typescript';
 
 interface Station {
   id: number;
@@ -29,6 +29,8 @@ export default function Content() {
   const router = useRouter();
   const { id } = router.query;
   const [station, setStationData] = useState<Station>();
+  const [fromCount, setFrom] = useState(0);
+  const [toCount, setTo] = useState(0);
 
   useEffect(() => {
 
@@ -44,13 +46,34 @@ export default function Content() {
       const res = await fetch(url, postData);
       const data = await res.json();
 
-      const stations: Station = data.results;
+      const stations: Station[] = data.results;
       if (stations) {
         const stationsDataList = Object.entries(stations).map(([id, station]) => ({ id, ...station }));
         setStationData(stationsDataList[0]);
       }
     }
+    async function getCounts() {
+      const url = 'http://localhost:3000/api/getCount';
+      const postData = {
+        method: "Post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          table: 'trips',
+          attribute: 'start_location_id',
+          value: id,
+        }),
+      }
+      const res = await fetch(url, postData);
+      const data = await res.json();
+      const from = data.results;
+      if (from) {
+        const stationsDataList = Object.entries(from).map(([id, f]) => ({ id, ...f }));
+        setFrom(from[0].count);
+      }
+    }
+    
     getStation();
+    getCounts();
   }, [router.query.id, router.isReady]);
 
   const Map = dynamic(() => import('../../components/map'), {
@@ -80,12 +103,12 @@ export default function Content() {
             <td>{station?.capacity}</td>
           </tr>
           <tr>
-            <td>Matkoja aloitetty täältä yhteensä</td>
-            <td>{station?.capacity}</td>
+            <td>Matkoja aloitettu täältä yhteensä</td>
+            <td>{fromCount}</td>
           </tr>
           <tr>
             <td>Matkoja lopetettu tänne yhteensä</td>
-            <td>{station?.capacity}</td>
+            <td>{toCount}</td>
           </tr>
         </tbody>
       </table>

@@ -5,12 +5,14 @@ interface QueryOptions {
   query: string;
 }
 
-export default async function getStation(req: NextApiRequest, res: NextApiResponse) {
+export default async function getStations(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const id = req.body.id;
+    const table = req.body.table;
+    const attribute = req.body.attribute;
+    const value = req.body.value;
 
     const sqlQuery: QueryOptions = {
-      query: `SELECT * FROM stations WHERE id = ${id}`
+      query: `SELECT COUNT(*) AS count FROM ${table} WHERE ${attribute} = ${value}`
     }
 
     const [results] = await query(sqlQuery);

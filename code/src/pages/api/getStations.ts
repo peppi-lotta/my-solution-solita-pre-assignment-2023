@@ -3,17 +3,15 @@ import { query } from '../../../db';
 
 interface QueryOptions {
   query: string;
-  values?: any[];
 }
 
-export default async function getSations(req: NextApiRequest, res: NextApiResponse) {
+export default async function getStations(req: NextApiRequest, res: NextApiResponse) {
   try {
     const pageSize = 10;
     const page = req.body.page;
 
     const sqlQuery: QueryOptions = {
       query: `SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
-      values: []
     }
 
     const [results] = await query(sqlQuery);

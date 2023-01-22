@@ -6,7 +6,7 @@ interface Trip {
     id: number;
     start_time: string;
     end_time: string;
-    start_locatin_id: number;
+    start_location_id: number;
     end_location_id: number;
     duration: number;
     distance: number;
@@ -52,32 +52,34 @@ export default function Content() {
     console.log(tripsData);
     return (
         <div className={styles.wrap}>
-            <table className={styles.styled_table}>
-                <thead>
-                    <tr>
-                        <th>Lähtöpaikka</th>
-                        <th>Lopetuspaikka</th>
-                        <th>Kesto minuuteissa</th>
-                        <th>Etäisyys kilometreissä</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {tripsData.map((trip) => (
+            <div className={styles.table_view}>
+                <table className={styles.styled_table}>
+                    <thead>
                         <tr>
-                            <td>{trip.start_name_fi}</td>
-                            <td>{trip.end_name_fi}</td>
+                            <th>Lähtöpaikka</th>
+                            <th>Lopetuspaikka</th>
+                            <th>Kesto minuuteissa</th>
+                            <th>Etäisyys kilometreissä</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tripsData.map((trip) => (
+                            <tr>
+                                <td>{trip.start_name_fi}</td>
+                                <td>{trip.end_name_fi}</td>
                             <td>{(Math.round(trip.duration/60)).toFixed(0)}</td>
                             <td>{trip.distance/1000}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <Pagination
-                items={items_length}
-                currentPage={currentPage}
-                pageSize={pageSize}
-                onPageChange={onPageChange}
-            />
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <Pagination
+                    items={items_length}
+                    currentPage={currentPage}
+                    pageSize={pageSize}
+                    onPageChange={onPageChange}
+                />
+            </div>
         </div>
     );
 }
