@@ -61,7 +61,7 @@
     margin: 25px 0;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 400px;
+    width: 50%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
     thead tr {
@@ -164,6 +164,12 @@
 }
 
 .map {
-    min-width: 300px;
-    min-height: 300px;
+    width: 50%;
+    min-height: 100%;
+    margin: 0 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.map_with_info {
+    display: flex;
+    flex-direction: row;
 }

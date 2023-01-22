@@ -29,16 +29,15 @@ const Pagination: React.FC<Props> = ({ items, pageSize, currentPage, onPageChang
         <div>
             <ul className={styles.pagination}>
                 {/* previous page button. Disabled on first page */}
-                <li className={ currentPage === 1 ? styles.text_disabled : styles.text }><a className={styles.pageLink} onClick={() => onPageChange(currentPage - 1)} >
+                <li className={currentPage === 1 ? styles.text_disabled : styles.text}><a className={styles.pageLink} onClick={() => onPageChange(currentPage - 1)} >
                     Edellinen
                 </a></li>
                 {/* first page button. Only show first page button if it is not otherwise visible */}
-                {(showPages[0] != 1) && 
-                <div>
-                    <li className={styles.pageItem}>
-                        <a className={styles.pageLink} onClick={() => onPageChange(1)}>1</a>
-                    </li> 
-                </div> } 
+                {(showPages[0] != 1) &&
+                    <li className={styles.text}>
+                        <a className={styles.pageLink} onClick={() => onPageChange(1)}>Alkuun</a>
+                    </li>
+                }
                 {/* buttons that show current page and next 4 pages */}
                 {showPages.map((page) => (
                     <li
@@ -53,15 +52,14 @@ const Pagination: React.FC<Props> = ({ items, pageSize, currentPage, onPageChang
                     </li>
                 ))}
                 {/* last page button. Only show last page button if it is not otherwise visible */}
-                {(showPages[5] != last) && 
-                <div>
-                <li className={styles.pageItem}><a className={styles.pageLink} onClick={() => onPageChange(last)}>
-                    {last}
-                </a></li>
-                </div> } 
+                {(showPages[5] != last) &&
+                    <li className={styles.text}><a className={styles.pageLink} onClick={() => onPageChange(last)}>
+                        Loppuun
+                    </a></li>
+                }
 
                 {/* next page button. disabeld on last page */}
-                <li className={ currentPage === last ? styles.text_disabled : styles.text }>
+                <li className={currentPage === last ? styles.text_disabled : styles.text}>
                     <a className={styles.pageLink} onClick={() => onPageChange(currentPage + 1)}>Seuraava</a>
                 </li>
             </ul>

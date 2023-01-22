@@ -17,7 +17,6 @@ export default async function getCount(req: NextApiRequest, res: NextApiResponse
         if (!attribute || !value) {
             console.log("here");
             sqlQuery = {
-                //query: `SELECT COUNT(*) AS count FROM ${table} WHERE ${attribute} = ${value}`
                 query: `SELECT COUNT(*) AS count FROM ${table}`
             }
         } else {
@@ -25,7 +24,6 @@ export default async function getCount(req: NextApiRequest, res: NextApiResponse
                 query: `SELECT COUNT(*) AS count FROM ${table} WHERE ${attribute} = ${value}`
             }
         }
-
 
         const [results] = await query(sqlQuery);
 
