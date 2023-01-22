@@ -14,17 +14,31 @@ const Pagination: React.FC<Props> = ({ items, pageSize, currentPage, onPageChang
     const pagesCount = Math.ceil(items / pageSize); //calculating total number of pages
 
     if (pagesCount === 1) return null; //if only one page, return null
-    const allPages = Array.from({ length: pagesCount }, (_, i) => i + 1); //generating an array of all pages
-    const last = allPages[allPages.length - 1]; //getting the last page
-    const showPages = Array.from({ length: ((currentPage + 5) - currentPage) }, (_, i) => currentPage + i); //generating an array of pages to show
+    const last = Math.ceil(items / pageSize); //getting the last page
+
+    let showPages = Array.from({ length: 6 }, (_, i) => ((currentPage - 2) + i)); //generating an array of pages to show
+    if (currentPage > (last - 4)) {
+        showPages = Array.from({ length: 6 }, (_, i) => ((last - 5) + i)); //generating an array of pages to show
+    }
+    if (currentPage < 4) {
+        showPages = Array.from({ length: 6 }, (_, i) => (1 + i)); //generating an array of pages to show
+    }
+
 
     return (
         <div>
             <ul className={styles.pagination}>
-                {/* previous page button */}
-                <li className={styles.text}><a className={styles.pageLink} onClick={() => onPageChange(currentPage - 1)}>
+                {/* previous page button. Disabled on first page */}
+                <li className={ currentPage === 1 ? styles.text_disabled : styles.text }><a className={styles.pageLink} onClick={() => onPageChange(currentPage - 1)} >
                     Edellinen
                 </a></li>
+                {/* first page button. Only show first page button if it is not otherwise visible */}
+                {(showPages[0] != 1) && 
+                <div>
+                    <li className={styles.pageItem}>
+                        <a className={styles.pageLink} onClick={() => onPageChange(1)}>1</a>
+                    </li> 
+                </div> } 
                 {/* buttons that show current page and next 4 pages */}
                 {showPages.map((page) => (
                     <li
@@ -38,10 +52,18 @@ const Pagination: React.FC<Props> = ({ items, pageSize, currentPage, onPageChang
                         </a>
                     </li>
                 ))}
-                {/* next page button */}
-                <li className={styles.text}><a className={styles.pageLink} onClick={() => onPageChange(currentPage + 1)}>
-                    Seuraava
+                {/* last page button. Only show last page button if it is not otherwise visible */}
+                {(showPages[5] != last) && 
+                <div>
+                <li className={styles.pageItem}><a className={styles.pageLink} onClick={() => onPageChange(last)}>
+                    {last}
                 </a></li>
+                </div> } 
+
+                {/* next page button. disabeld on last page */}
+                <li className={ currentPage === last ? styles.text_disabled : styles.text }>
+                    <a className={styles.pageLink} onClick={() => onPageChange(currentPage + 1)}>Seuraava</a>
+                </li>
             </ul>
         </div>
     );

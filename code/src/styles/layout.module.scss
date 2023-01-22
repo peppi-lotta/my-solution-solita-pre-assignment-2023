@@ -113,7 +113,8 @@
         cursor: pointer;
         border: none;
         height: 45px;
-        width: 45px;
+        width: fit-content;
+        min-width: 45px;
         background-color: #009879;
         margin: 0 5px;
         justify-content: center;
@@ -123,6 +124,12 @@
     .text {
         width: fit-content;
         padding: 0 5px;
+    }
+    .text_disabled{
+        pointer-events: none;
+        width: fit-content;
+        padding: 0 5px;
+        background-color: #79a39b;
     }
     .pageItem:hover {
         background-color: #006450;

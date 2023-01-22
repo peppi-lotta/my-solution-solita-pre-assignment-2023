@@ -23,12 +23,33 @@ export default function Content() { //has whole content shown in the stations pa
     const [stationsData, setStationsData] = useState<Station[]>([]);//state for storing station data
     const [currentPage, setCurrentPage] = useState(1);//state for storing current page number
     const pageSize = 10; //number of items per page
+    const [row_count, setCount] = useState(1); //total number of rows in table
 
     //function to handle page changes
     const onPageChange = (page) => {
         setCurrentPage(page);
     };
-    const items_length = 400; //total number of items
+
+    //useEffect hook to fetch count of rows. This hook is tied to row_count and should only be called once at page load
+    useEffect(() => {
+        async function getCount() {
+            const url = 'http://localhost:3000/api/getCount'; //URL to fetch data from
+            const postData = {
+                method: "Post", //HTTP method
+                headers: { "Content-Type": "application/json" }, //headers for the request
+                body: JSON.stringify({
+                    table: 'stations' //getCount of all rows in stations table
+                }),
+            }
+            //fetching data from the URL
+            const res = await fetch(url, postData);
+            const data = await res.json();
+            console.log(data);
+            setCount(data.results[0].count)
+        }
+        getCount();
+    }, [row_count]);
+    
 
     //useEffect hook to fetch data. This hook is tied to current page number and new call is made every time page changes
     useEffect(() => {
@@ -46,7 +67,7 @@ export default function Content() { //has whole content shown in the stations pa
             const data = await res.json();
             const stations: Station[] = data.results;
 
-            //converting data to station data list
+            //converting data to stationdatalist
             const stationsDataList = Object.entries(stations).map(([id, station]) => ({ id, ...station }));
             setStationsData(stationsDataList);
         }
@@ -58,6 +79,7 @@ export default function Content() { //has whole content shown in the stations pa
     return (
         <div className={styles.wrap}>
             <div className={styles.table_view}>
+                
                 <table className={styles.styled_table}>
                     <thead>
                         {/* Table header */}
@@ -82,7 +104,7 @@ export default function Content() { //has whole content shown in the stations pa
                     </tbody>
                 </table>
                 <Pagination
-                    items={items_length}
+                    items={row_count}
                     currentPage={currentPage}
                     pageSize={pageSize}
                     onPageChange={onPageChange}
