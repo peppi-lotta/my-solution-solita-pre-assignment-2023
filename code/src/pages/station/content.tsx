@@ -2,8 +2,8 @@ import styles from '../../styles/layout.module.scss'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
-//import Map from "../../components/map";
 import dynamic from 'next/dynamic'
+import { lchown } from 'fs';
 
 interface Station {
   id: number;
@@ -19,15 +19,12 @@ interface Station {
   x_cord: number;
   y_cord: number;
 }
-
+interface Coordinates {
+  long: number;
+  lat: number;
+}
 
 export default function Content() {
-
-  const Map = dynamic(
-    () => import('../../components/map'),
-    { ssr: false }
-  )
-  
 
   const router = useRouter();
   const { id } = router.query;
@@ -52,13 +49,14 @@ export default function Content() {
         const stationsDataList = Object.entries(stations).map(([id, station]) => ({ id, ...station }));
         setStationData(stationsDataList[0]);
       }
-
     }
     getStation();
   }, [router.query.id, router.isReady]);
 
-  console.log("stationData");
-  console.log(station);
+  const Map = dynamic(() => import('../../components/map'), {
+    ssr: false
+  });
+
   return (
     <div className={styles.wrap}>
       <table className={styles.styled_table}>
@@ -92,7 +90,7 @@ export default function Content() {
         </tbody>
       </table>
       {station?.name_fi}
-        <Map />
+      <Map long={station?.x_cord} lat={station?.y_cord} />
     </div>
   );
 }
