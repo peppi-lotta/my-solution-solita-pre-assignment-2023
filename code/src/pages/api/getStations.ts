@@ -1,24 +1,26 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next'; 
 import { query } from '../../../db';
 
-interface QueryOptions {
-  query: string;
+interface QueryOptions { //defining interface for query options
+  query: string; //query string
 }
 
+//Return list of 10 stations based on currentpage 
 export default async function getStations(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const pageSize = 10;
-    const page = req.body.page;
+    const pageSize = 10; //number of items per page
+    const page = req.body.page; //page number from the request body
 
+    //query options
     const sqlQuery: QueryOptions = {
       query: `SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
     }
 
-    const [results] = await query(sqlQuery);
+    const [results] = await query(sqlQuery); //executing query
 
-    res.status(200).json({ results });
+    res.status(200).json({ results }); //sending results as json in the response
+
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: "Failed to fetch data" })
+    res.status(500).json({ message: "Failed to fetch data" }); //sending error message as json in the response
   }
 }

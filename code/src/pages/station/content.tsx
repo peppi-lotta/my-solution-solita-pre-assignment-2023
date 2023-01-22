@@ -1,11 +1,12 @@
+// style imports
 import styles from '../../styles/layout.module.scss'
+//functional imports
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
-import { getJSDocAugmentsTag } from 'typescript';
 
-interface Station {
+interface Station { //defining interface for station (data)
   id: number;
   name_fi: string;
   name_sw: string;
@@ -19,63 +20,45 @@ interface Station {
   x_cord: number;
   y_cord: number;
 }
-interface Coordinates {
-  long: number;
-  lat: number;
-}
 
-export default function Content() {
+export default function Content() { //this has the whole content of the single station view page
 
   const router = useRouter();
-  const { id } = router.query;
+  const { id } = router.query; //get id from url {base_url}/station/{id}
   const [station, setStationData] = useState<Station>();
-  const [fromCount, setFrom] = useState(0);
-  const [toCount, setTo] = useState(0);
+  const [fromCount, setFrom] = useState(0); //how many bike have started a trip from this station
+  const [toCount, setTo] = useState(0); //how many bike have ended a trip to this station
 
-  useEffect(() => {
+  //hook to get stations data. This is only ran once when we load the page
+  // Hook is tied to the router being ready and woan't run before it
+  useEffect(() => { 
 
     async function getStation() {
-      const url = 'http://localhost:3000/api/getStation';
+      const url = 'http://localhost:3000/api/getStation'; //URL to fetch data from
       const postData = {
-        method: "Post",
-        headers: { "Content-Type": "application/json" },
+        method: "Post", //HTTP method
+        headers: { "Content-Type": "application/json" }, //headers for the request
         body: JSON.stringify({
-          id
+          id //page number to be sent in the request body
         }),
       }
+      //fetching data from the URL
       const res = await fetch(url, postData);
       const data = await res.json();
 
+      //converting data to station data list
       const stations: Station[] = data.results;
       if (stations) {
         const stationsDataList = Object.entries(stations).map(([id, station]) => ({ id, ...station }));
+        //set first result as station variable
         setStationData(stationsDataList[0]);
       }
     }
-    async function getCounts() {
-      const url = 'http://localhost:3000/api/getCount';
-      const postData = {
-        method: "Post",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          table: 'trips',
-          attribute: 'start_location_id',
-          value: id,
-        }),
-      }
-      const res = await fetch(url, postData);
-      const data = await res.json();
-      const from = data.results;
-      if (from) {
-        const stationsDataList = Object.entries(from).map(([id, f]) => ({ id, ...f }));
-        setFrom(from[0].count);
-      }
-    }
-    
     getStation();
-    getCounts();
   }, [router.query.id, router.isReady]);
 
+  //call map component dynamically to stop serverside rendering
+  //map has to be rendered in client side to work correctly
   const Map = dynamic(() => import('../../components/map'), {
     ssr: false
   });
@@ -84,7 +67,9 @@ export default function Content() {
     <div className={styles.wrap}>
       <table className={styles.styled_table}>
         <thead>
+          {/* Table header */}
           <tr>
+            {/* Print stations data */}
             <th>Aseman tiedot:</th>
             <th>{station?.name_fi}/{station?.name_sw}</th>
           </tr>
@@ -113,6 +98,7 @@ export default function Content() {
         </tbody>
       </table>
       {station?.name_fi}
+      {/* Map component. Gets coordinate data and shos the staion in the middle of the map */}
       <Map long={station?.x_cord} lat={station?.y_cord} />
     </div>
   );

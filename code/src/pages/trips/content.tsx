@@ -2,7 +2,7 @@ import styles from '../../styles/layout.module.scss'
 import React, { useState, useEffect } from 'react';
 import Pagination from '@/components/pagination';
 
-interface Trip {
+interface Trip { //defining interface Trip
     id: number;
     start_time: string;
     end_time: string;

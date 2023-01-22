@@ -1,24 +1,26 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { query } from '../../../db';
 
-interface QueryOptions {
+interface QueryOptions { //defining interface for query options
   query: string;
 }
 
+//get 25 trips based on current page
 export default async function getTrips(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const pageSize = 25;
-    const page = req.body.page;
+    const pageSize = 25; //number of items per page
+    const page = req.body.page; //page number from the request body
 
+    //query options
     const sqlQuery: QueryOptions = {
       query: `SELECT t.*, ss.name_fi AS start_name_fi, es.name_fi AS end_name_fi FROM trips AS t LEFT JOIN stations AS ss ON t.start_location_id = ss.id  LEFT JOIN stations AS es ON t.end_location_id = es.id LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`
     }
 
-    const [results] = await query(sqlQuery);
+    const [results] = await query(sqlQuery); //executing query
 
-    res.status(200).json({ results });
+    res.status(200).json({ results }); //sending results as json in the response
+
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ message: "Failed to fetch data" })
+    res.status(500).json({ message: "Failed to fetch data" }); //sending error message as json in the response
   }
 }

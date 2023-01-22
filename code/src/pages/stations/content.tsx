@@ -1,8 +1,9 @@
-import styles from '../../styles/layout.module.scss'
-import React, { useState, useEffect } from 'react';
-import Pagination from '@/components/pagination';
 
-interface Station {
+import styles from '../../styles/layout.module.scss';//importing styles
+import React, { useState, useEffect } from 'react'; //funtional imports
+import Pagination from '@/components/pagination'; //component immports
+
+interface Station { //defining interface Station
     id: number;
     name_fi: string;
     name_sw: string;
@@ -17,32 +18,35 @@ interface Station {
     y_cord: number;
 }
 
-export default function Content() {
+export default function Content() { //has whole content shown in the stations page
+    
+    const [stationsData, setStationsData] = useState<Station[]>([]);//state for storing station data
+    const [currentPage, setCurrentPage] = useState(1);//state for storing current page number
+    const pageSize = 10; //number of items per page
 
-    const [stationsData, setStationsData] = useState<Station[]>([]);
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const pageSize = 10;
-
+    //function to handle page changes
     const onPageChange = (page) => {
         setCurrentPage(page);
     };
-    const items_length = 400;
+    const items_length = 400; //total number of items
 
+    //useEffect hook to fetch data. This hook is tied to current page number and new call is made every time page changes
     useEffect(() => {
         async function getStations() {
-            const url = 'http://localhost:3000/api/getStations';
+            const url = 'http://localhost:3000/api/getStations'; //URL to fetch data from
             const postData = {
-                method: "Post",
-                headers: { "Content-Type": "application/json" },
+                method: "Post", //HTTP method
+                headers: { "Content-Type": "application/json" }, //headers for the request
                 body: JSON.stringify({
-                    page: currentPage
+                    page: currentPage //page number to be sent in the request body
                 }),
             }
+            //fetching data from the URL
             const res = await fetch(url, postData);
             const data = await res.json();
             const stations: Station[] = data.results;
 
+            //converting data to station data list
             const stationsDataList = Object.entries(stations).map(([id, station]) => ({ id, ...station }));
             setStationsData(stationsDataList);
         }
@@ -50,14 +54,13 @@ export default function Content() {
         getStations();
     }, [currentPage]);
 
-
-
-    console.log(currentPage);
+    //rendering the table with station data and pagination component
     return (
         <div className={styles.wrap}>
             <div className={styles.table_view}>
                 <table className={styles.styled_table}>
                     <thead>
+                        {/* Table header */}
                         <tr>
                             <th>Pysäkin nimi</th>
                             <th>Osoite</th>
@@ -66,11 +69,13 @@ export default function Content() {
                         </tr>
                     </thead>
                     <tbody>
+                        {/* Map stations' data as rows of the table */}
                         {stationsData.map((station) => (
                             <tr>
                                 <td>{station.name_fi}</td>
-                                <td>{station.address_fi}</td>
-                                <td>{station.capacity}</td>
+                                <td>{station.address_fi}</td> 
+                                <td>{station.capacity}</td> 
+                                {/* This button takes the user to the station view page of the correct id  */}
                                 <td><a href={"http://localhost:3000/station/" + station.id}><button className={styles.basic_btn} type="button">Katso yksityiskohdat</button></a></td>
                             </tr>
                         ))}
