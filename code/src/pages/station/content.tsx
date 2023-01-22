@@ -2,8 +2,8 @@ import styles from '../../styles/layout.module.scss'
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
-import Map from "../../components/map";
-
+//import Map from "../../components/map";
+import dynamic from 'next/dynamic'
 
 interface Station {
   id: number;
@@ -22,6 +22,12 @@ interface Station {
 
 
 export default function Content() {
+
+  const Map = dynamic(
+    () => import('../../components/map'),
+    { ssr: false }
+  )
+  
 
   const router = useRouter();
   const { id } = router.query;
@@ -86,7 +92,7 @@ export default function Content() {
         </tbody>
       </table>
       {station?.name_fi}
-      <Map />
+        <Map />
     </div>
   );
 }

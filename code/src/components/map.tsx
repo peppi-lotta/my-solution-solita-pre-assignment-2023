@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css'
 import { MapContainer, TileLayer } from 'react-leaflet'
-import styles from '../../styles/layout.module.scss'
+import styles from '../styles/layout.module.scss'
 import { Icon } from 'leaflet';
 import { Marker } from 'react-leaflet';
 
@@ -23,7 +23,7 @@ function Map() {
     });
 
     return (
-        <MapContainer className={styles.map} center={[60.4518, 22.2666]} zoom={13} scrollWheelZoom={false}>
+        <MapContainer className={styles.map} center={[coordinates.long, coordinates.lat]} zoom={13} scrollWheelZoom={false}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
