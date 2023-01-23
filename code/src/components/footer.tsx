@@ -14,13 +14,11 @@ export default function Footer() {
                 <div className={styles.logo}>
                     {/* Render Bike logo as an image with width and height of 70 */}
                     <Image
-                        src="/road.png"
+                        src="/logo.png"
                         alt="bike logo"
-                        width={70}
-                        height={70}
+                        width={100}
+                        height={60}
                     />
-                    {/* Render CityBike title */}
-                    <h3>CityBike</h3>
                 </div>
             </a>
         </footer>

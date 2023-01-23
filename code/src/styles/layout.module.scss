@@ -1,11 +1,21 @@
+$primary-green: #009879;
+$active-green: #002920;
+$light-accent: #ccfff5;
+$light: #e5fffa;
+$primary-pink: #ffd6df;
+$active-pink: #290008;
+$black: #000;
+$white: #ffffff;
+
+
+
 .header {
     display: flex;
     flex-direction: row;
-    background-color: #009879;
+    background-color: $primary-green;
     width: 100%;
     right: 0;
     top: 0;
-    letter-spacing: 3px;
     justify-content: space-between;
 
     .navigation {
@@ -18,11 +28,11 @@
         .menuItems {
             margin-left: 50px;
             display: inline-block;
-            color: #000;
+            color: $light;
             text-decoration: none;
 
             :hover {
-                color: gray;
+                color: $light-accent;
             }
         }
     }
@@ -32,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #009879;
+    background-color: $primary-green;
     height: fit-content;
     left: 0;
     bottom: 0;
@@ -42,31 +52,34 @@
 .logo {
     height: fit-content;
     display: flex;
-    margin-left: 20px;
     letter-spacing: 10px;
     flex-direction: row;
+    margin: 10px 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height:100vh;
 }
 
 .wrap {
-    padding: 50px 100px;
+    margin: 50px 100px;
+    flex: 1;
+    z-index: 2;
 }
 
 .display_data {
-    background-color: white;
+    background-color: $white;
     height: fit-content;
 }
 
-.styled_table {
+.styled_table, .tiny_table {
     border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    width: 50%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
     thead tr {
-        background-color: #009879;
-        color: #ffffff;
+        background-color: $primary-green;
+        color: $white;
         text-align: left;
     }
 
@@ -76,22 +89,28 @@
     }
 
     tbody tr {
-        border-bottom: 1px solid #dddddd;
+        border-bottom: 1px solid $white;
     }
 
     tbody tr:nth-of-type(even) {
-        background-color: #f3f3f3;
+        background-color: $light;
     }
 
     tbody tr:nth-of-type(odd) {
-        background-color: #aaccc5;
+        background-color: $light-accent;
     }
 
     tbody tr:last-of-type {
-        border-bottom: 2px solid #009879;
+        border-bottom: 2px solid $primary-green;
     }
 }
-
+.tiny_table {
+    width: fit-content;
+    position: absolute;
+    left: 5%;
+    top: 35%;
+    z-index: 10;
+}
 
 .pagination {
     display: flex;
@@ -143,6 +162,7 @@
 .table_view {
     display: flex;
     flex-direction: column;
+    z-index: 10;
 }
 
 .basic_btn {
@@ -164,12 +184,16 @@
 }
 
 .map {
-    width: 50%;
+    width: 100%;
     min-height: 100%;
-    margin: 0 30px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    z-index: -1;
 }
-.map_with_info {
-    display: flex;
-    flex-direction: row;
+.map_container {
+    display: block;
+    position: absolute;
+    height: 350px;
+    width: 100vw;
+    left: 0;
+    top: 80px;
 }

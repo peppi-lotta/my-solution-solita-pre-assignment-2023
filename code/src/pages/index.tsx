@@ -5,7 +5,7 @@ import Footer from '../components/footer';
 
 <Head>
   <title>CityBike</title>
-  <link rel="icon" href="/road." />
+  <link rel="icon" href="/logo.png" />
 </Head>
 
 export default function Home() {

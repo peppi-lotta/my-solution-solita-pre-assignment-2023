@@ -23,12 +23,11 @@ export default function Header() {
             <a href="/">
                 <div className={styles.logo}>
                     <Image
-                        src="/road.png" //get image from 'public' folder
+                        src="/logo.png" //get image from 'public' folder
                         alt="bike logo" //alternative text for the image
-                        width={70} 
-                        height={70}
+                        width={100} 
+                        height={60}
                     />
-                    <h3>CityBike</h3>
                 </div>
             </a>
             <nav className={styles.navigation}>

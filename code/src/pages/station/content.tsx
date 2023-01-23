@@ -108,16 +108,19 @@ export default function Content() { //this has the whole content of the single s
   });
 
   return (
-    <div className={styles.wrap}>
-      <h1>{station?.name_fi}/{station?.name_sw}</h1>
-      <div className={styles.map_with_info}>
-        <table className={styles.styled_table}>
+    <div className={styles.container}>
+      <div className={styles.wrap}>
+      <div className={styles.map_container}>
+        {/* Map component. Gets coordinate data and shos the staion in the middle of the map */}
+        <Map long={station?.x_cord} lat={station?.y_cord} />
+      </div>
+      <table className={styles.tiny_table}>
           <thead>
             {/* Table header */}
             <tr>
               {/* Print stations data */}
               <th>Aseman tiedot:</th>
-              <th></th>
+              <th>{station?.name_fi}/{station?.name_sw}</th>
             </tr>
           </thead>
           <tbody>
@@ -143,9 +146,7 @@ export default function Content() { //this has the whole content of the single s
             </tr>
           </tbody>
         </table>
-        {/* Map component. Gets coordinate data and shos the staion in the middle of the map */}
-        <Map long={station?.x_cord} lat={station?.y_cord} />
-      </div>
+    </div>
     </div>
   );
 }
