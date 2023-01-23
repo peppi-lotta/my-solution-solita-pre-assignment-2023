@@ -44,7 +44,7 @@ export default function Content() { //has whole content shown in the stations pa
             //fetching data from the URL
             const res = await fetch(url, postData);
             const data = await res.json();
-            console.log(data);
+
             setCount(data.results[0].count)
         }
         getCount();
