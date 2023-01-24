@@ -21,15 +21,16 @@ npm install  @types/leaflet
 npm install react-leaflet
 
 ## Database
-I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. 
+I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. Url fetches connections are hard coded to localhost.
 
 This is what shoud be inderted into .env file
 HOST = {hostname}
 USER = '{usernamme}
 PASSWORD = {password}
 DATABASE = 'solita_pre_assignmentdb'
-BASE_URL = 'http://localhost:3000/'
 
+
+Data folder has a zipped sql dump of my database. Import the data to server of your choosing, update the .end and run the code.
 
 ## Data folder
 In the data folder there is a python file. It can be run and it will output a csv that is compatible with the database. 
