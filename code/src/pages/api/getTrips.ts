@@ -14,12 +14,7 @@ export default async function getTrips(req: NextApiRequest, res: NextApiResponse
     const pageSize = req.body.pageSize//number of items per page
     
     //query options
-    let sqlQuery: QueryOptions = {
-      query: ""
-    }
-    
-    console.log(attribute);
-    console.log(value);
+    let sqlQuery: QueryOptions;
 
     if (!attribute || !value) {
       sqlQuery = {

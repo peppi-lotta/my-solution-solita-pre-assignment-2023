@@ -11,9 +11,8 @@ export default async function getCount(req: NextApiRequest, res: NextApiResponse
         const attribute = req.body.attribute;
         const value = req.body.value;
 
-        let sqlQuery: QueryOptions = {
-            query: ""
-        }
+        let sqlQuery: QueryOptions;
+        
         if (!attribute || !value) {
             sqlQuery = {
                 query: `SELECT COUNT(*) AS count FROM ${table}`

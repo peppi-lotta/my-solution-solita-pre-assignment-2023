@@ -101,6 +101,23 @@ $white: #ffffff;
         padding: 12px 15px;
     }
 
+    .sorting {
+        th { padding: 0; }
+        button {
+        font-family: inherit;
+        color: inherit;
+        background-color: inherit;
+        border: none;
+        height: 100%;
+        width: 100%;
+        padding: 12px 15px;
+        }
+    }
+
+    button:hover {
+        background-color: $active-green;
+    }
+
     tbody tr {
         border-bottom: 1px solid $white;
     }

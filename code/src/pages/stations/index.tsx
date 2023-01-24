@@ -25,6 +25,7 @@ export default function Content() { //has whole content shown in the stations pa
     const [currentPage, setCurrentPage] = useState(1);//state for storing current page number
     const pageSize = 10; //number of items per page
     const [row_count, setCount] = useState(1); //total number of rows in table
+    const [sortBy, setSortBy] = useState('');
 
     //function to handle page changes
     const onPageChange = (page) => {
@@ -60,7 +61,8 @@ export default function Content() { //has whole content shown in the stations pa
                 method: "Post", //HTTP method
                 headers: { "Content-Type": "application/json" }, //headers for the request
                 body: JSON.stringify({
-                    page: currentPage //page number to be sent in the request body
+                    page: currentPage, //page number to be sent in the request body
+                    order: sortBy
                 }),
             }
             //fetching data from the URL
@@ -74,7 +76,17 @@ export default function Content() { //has whole content shown in the stations pa
         }
 
         getStations();
-    }, [currentPage]);
+    }, [currentPage, sortBy]);
+
+    //function to handle page changes
+    const onSetSort = (type: string) => {
+        if (type == sortBy) {
+            setSortBy('');
+        }else {
+            setSortBy(type)
+        }
+        
+    };
 
     //rendering the table with station data and pagination component
     return (
@@ -90,10 +102,10 @@ export default function Content() { //has whole content shown in the stations pa
                     <table className={styles.styled_table}>
                         <thead>
                             {/* Table header */}
-                            <tr>
-                                <th>Pysäkin nimi</th>
-                                <th>Osoite</th>
-                                <th>Kapasiteetti</th>
+                            <tr className={styles.sorting}>
+                                <th><button onClick={ () => onSetSort('name_fi') }  >Pysäkin nimi</button></th>
+                                <th><button onClick={ () => onSetSort('address_fi') }  >Osoite</button></th>
+                                <th><button onClick={ () => onSetSort('capacity') }  >Kapasiteetti</button></th>
                                 <th></th>
                             </tr>
                         </thead>

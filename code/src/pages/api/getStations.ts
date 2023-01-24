@@ -10,11 +10,20 @@ export default async function getStations(req: NextApiRequest, res: NextApiRespo
   try {
     const pageSize = 10; //number of items per page
     const page = req.body.page; //page number from the request body
-
+    const order = req.body.order; //sorting type from the request body
+    
+    let sqlQuery: QueryOptions;
     //query options
-    const sqlQuery: QueryOptions = {
-      query: `SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
-    }
+
+    if (order != '') {
+      sqlQuery = {
+        query: `SELECT * FROM stations ORDER BY ${order} LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
+      }
+  } else {
+      sqlQuery = {
+        query: `SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
+      }
+  }
 
     const [results] = await query(sqlQuery); //executing query
 
