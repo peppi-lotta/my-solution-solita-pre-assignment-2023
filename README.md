@@ -21,3 +21,14 @@ My prefered program is HeidiSQL and the photo below shows the settings needed fo
 
 
 ## implemented features
+### One station's view
+- With map that show a marker on the spot where the station is 
+- General info table with 
+- table with trips that have started from the station (with pagination)
+- tables with trips that have ended in this station (with pagination)
+
+### All stations view
+- paginated table of all the stations
+- search field that searches all the visible columns for the written input 
+- ordering by column (by pressing the column name)
+
