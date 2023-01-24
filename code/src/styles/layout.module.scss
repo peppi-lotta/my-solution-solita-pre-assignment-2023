@@ -253,3 +253,15 @@ $white: #ffffff;
     top: 200px;
     padding-top: 180px;
 }
+.form_item {
+    display: flex;
+    padding-bottom: 40px;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    input {
+        height: 30px;
+        width: 30%;
+        margin-left: 20px ;
+    }
+}
