@@ -10,12 +10,8 @@ import Image from "next/image";
 export default function Header() {
     const navLinks = [
         {
-            name: "matkat", //name of the link
-            path: "/trips", //path of the link
-        },
-        {
-            name: "asemat",
-            path: "/stations", 
+            name: "ASEMAT", //name of the link
+            path: "/", //path of the link
         },
     ];
     return (
