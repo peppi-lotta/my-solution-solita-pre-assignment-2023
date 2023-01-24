@@ -26,6 +26,7 @@ export default function Content() { //has whole content shown in the stations pa
     const pageSize = 10; //number of items per page
     const [row_count, setCount] = useState(1); //total number of rows in table
     const [sortBy, setSortBy] = useState('');
+    const [search, setSearch] = useState('');
 
     //function to handle page changes
     const onPageChange = (page) => {
@@ -40,7 +41,8 @@ export default function Content() { //has whole content shown in the stations pa
                 method: "Post", //HTTP method
                 headers: { "Content-Type": "application/json" }, //headers for the request
                 body: JSON.stringify({
-                    table: 'stations' //getCount of all rows in stations table
+                    table: 'stations', //getCount of all rows in stations table
+                    search: search
                 }),
             }
             //fetching data from the URL
@@ -50,7 +52,7 @@ export default function Content() { //has whole content shown in the stations pa
             setCount(data.results[0].count)
         }
         getCount();
-    }, [row_count]);
+    }, [row_count, search]);
 
 
     //useEffect hook to fetch data. This hook is tied to current page number and new call is made every time page changes
@@ -62,7 +64,8 @@ export default function Content() { //has whole content shown in the stations pa
                 headers: { "Content-Type": "application/json" }, //headers for the request
                 body: JSON.stringify({
                     page: currentPage, //page number to be sent in the request body
-                    order: sortBy
+                    order: sortBy,
+                    search: search
                 }),
             }
             //fetching data from the URL
@@ -76,21 +79,24 @@ export default function Content() { //has whole content shown in the stations pa
         }
 
         getStations();
-    }, [currentPage, sortBy]);
+    }, [currentPage, sortBy, search]);
 
-    //function to handle page changes
+    //function to handle seting sorting info
     const onSetSort = (type: string) => {
         if (type == sortBy) {
             setSortBy('');
         }else {
             setSortBy(type)
         }
-        
     };
 
     //rendering the table with station data and pagination component
     return (
         <div className={styles.wrap}>
+            <div className={styles.form_item}>
+                <label>Hae: </label>
+                <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} />
+            </div>
             <div className={styles.row} >
                 <Image
                     src="/womanWbike.svg" //get image from 'public' folder

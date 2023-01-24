@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next'; 
+import { NextApiRequest, NextApiResponse } from 'next';
 import { query } from '../../../db';
 
 interface QueryOptions { //defining interface for query options
@@ -11,19 +11,23 @@ export default async function getStations(req: NextApiRequest, res: NextApiRespo
     const pageSize = 10; //number of items per page
     const page = req.body.page; //page number from the request body
     const order = req.body.order; //sorting type from the request body
-    
+    const search = req.body.search;
+
     let sqlQuery: QueryOptions;
-    //query options
+    let q: string = `SELECT * FROM stations `;
 
     if (order != '') {
-      sqlQuery = {
-        query: `SELECT * FROM stations ORDER BY ${order} LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
-      }
-  } else {
-      sqlQuery = {
-        query: `SELECT * FROM stations LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`,
-      }
-  }
+      q = q + `ORDER BY ${order} `;
+    }
+    if (search != '') {
+      q = q + `WHERE name_fi LIKE '%${search}%' OR address_fi LIKE '%${search}%' OR capacity LIKE '%${search}%' `;
+    }
+
+    q = q + `LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`
+
+    sqlQuery = {
+      query: q,
+    }
 
     const [results] = await query(sqlQuery); //executing query
 

@@ -21,7 +21,7 @@ const Pagination: React.FC<Props> = ({ items, pageSize, currentPage, onPageChang
         showPages = Array.from({ length: 6 }, (_, i) => ((last - 5) + i)); //generating an array of pages to show
     }
     if (currentPage < 4) {
-        showPages = Array.from({ length: 6 }, (_, i) => (1 + i)); //generating an array of pages to show
+        showPages = Array.from({ length: (last < 6 ) ? last : 6 }, (_, i) => (1 + i)); //generating an array of pages to show
     }
 
 
@@ -52,7 +52,7 @@ const Pagination: React.FC<Props> = ({ items, pageSize, currentPage, onPageChang
                     </li>
                 ))}
                 {/* last page button. Only show last page button if it is not otherwise visible */}
-                {(showPages[5] != last) &&
+                {((showPages[5] != last) && (showPages.length == 6)) &&
                     <li className={styles.text}><a className={styles.pageLink} onClick={() => onPageChange(last)}>
                         Loppuun
                     </a></li>

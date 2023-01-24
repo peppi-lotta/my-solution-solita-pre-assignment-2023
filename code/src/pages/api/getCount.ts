@@ -10,19 +10,22 @@ export default async function getCount(req: NextApiRequest, res: NextApiResponse
         const table = req.body.table;
         const attribute = req.body.attribute;
         const value = req.body.value;
+        const search = req.body.search;
 
         let sqlQuery: QueryOptions;
+        let q: string = `SELECT COUNT(*) AS count FROM ${table} `
         
-        if (!attribute || !value) {
-            sqlQuery = {
-                query: `SELECT COUNT(*) AS count FROM ${table}`
-            }
-        } else {
-            sqlQuery = {
-                query: `SELECT COUNT(*) AS count FROM ${table} WHERE ${attribute} = ${value}`
-            }
+        if ((attribute && attribute != '') && (value && value != '')) {
+            q = q + `WHERE ${attribute} = ${value} `
+        } 
+        if (search && search != '') {
+            q = q + `WHERE name_fi LIKE '%${search}%' OR address_fi LIKE '%${search}%' OR capacity LIKE '%${search}%' `;
         }
 
+        sqlQuery = {
+            query: q
+        }
+        console.log(q);
         const [results] = await query(sqlQuery);
 
         res.status(200).json({ results });
