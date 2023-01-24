@@ -11,7 +11,8 @@ interface Trip { //defining interface Trip
     end_location_id: number;
     duration: number;
     distance: number;
-    loc_name_fi: string;
+    start_name_fi: string;
+    end_name_fi: string;
 }
 
 
@@ -23,7 +24,7 @@ interface Props { //defining Props interface
 const Trips: React.FC<Props> = ({ id, attribute }) => {
     const [tripsData, settripsData] = useState<Trip[]>([]);//state for storing trip data
     const [currentPage, setCurrentPage] = useState(1);//state for storing current page number
-    const pageSize = 10;//number of items per page
+    const pageSize = 25;//number of items per page
     const [row_count, setCount] = useState(1); //total number of rows in table
 
     //useEffect hook to fetch data. This hook is tied to current page number and new call is made every time page changes
@@ -37,7 +38,7 @@ const Trips: React.FC<Props> = ({ id, attribute }) => {
                 body: JSON.stringify({
                     table: 'trips', //getCount of station's trips
                     attribute: attribute,
-                    value: id
+                    value: id, 
                 }),
             }
             //fetching data from the URL
@@ -58,6 +59,7 @@ const Trips: React.FC<Props> = ({ id, attribute }) => {
                     headers: { "Content-Type": "application/json" },//headers for the request
                     body: JSON.stringify({
                         page: currentPage, //page number to be sent in the request body
+                        pageSize: pageSize,
                     })
                 }
             } else {
@@ -67,7 +69,8 @@ const Trips: React.FC<Props> = ({ id, attribute }) => {
                     body: body = JSON.stringify({
                         page: currentPage, //page number to be sent in the request body
                         attribute: attribute,
-                        value: id
+                        value: id,
+                        pageSize: pageSize,
                     })
                 }
             }
@@ -109,8 +112,8 @@ const Trips: React.FC<Props> = ({ id, attribute }) => {
                         {/* Map trips' data as rows of the table */}
                         {tripsData.map((trip) => (
                             <tr>
-                                <td>{trip.loc_name_fi}</td>
-                                <td>{trip.loc_name_fi}</td>
+                                <td>{trip.start_name_fi}</td>
+                                <td>{trip.end_name_fi}</td>
                                 <td>{(Math.round(trip.duration / 60)).toFixed(0)}</td>
                                 <td>{trip.distance / 1000}</td>
                             </tr>

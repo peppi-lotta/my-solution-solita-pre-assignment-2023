@@ -1,10 +1,12 @@
 // style imports
-import styles from '../../styles/layout.module.scss'
+import styles from '@/styles/layout.module.scss';
 //functional imports
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
+//componen imports 
+import Trips from '@/components/trips';
 
 interface Station { //defining interface for station (data)
   id: number;
@@ -21,6 +23,11 @@ interface Station { //defining interface for station (data)
   y_cord: number;
 }
 
+interface Options {
+  start: string;
+  end: string;
+}
+
 export default function Content() { //this has the whole content of the single station view page
 
   const router = useRouter();
@@ -28,6 +35,12 @@ export default function Content() { //this has the whole content of the single s
   const [station, setStationData] = useState<Station>();
   const [from_count, setFrom] = useState(0); //how many bike have started a trip from this station
   const [to_count, setTo] = useState(0); //how many bike have ended a trip to this station
+  const i = Number(id);
+
+  const options = {
+    start: 'start_location_id',
+    end: 'end_location_id',
+  }
 
   //useEffect hook to fetch count trip starting from this station. 
   //This hook is tied to from_count (and also rourer) and should only be called once at page load
@@ -110,11 +123,15 @@ export default function Content() { //this has the whole content of the single s
   return (
     <div className={styles.container}>
       <div className={styles.wrap}>
-      <div className={styles.map_container}>
-        {/* Map component. Gets coordinate data and shos the staion in the middle of the map */}
-        <Map long={station?.x_cord} lat={station?.y_cord} />
-      </div>
-      <table className={styles.tiny_table}>
+        <div className={styles.map_container}>
+          {/* Map component. Gets coordinate data and shos the staion in the middle of the map */}
+          {(station?.x_cord && station?.y_cord) &&
+            <>
+              <Map long={station?.x_cord} lat={station?.y_cord} />
+            </>
+          }
+        </div>
+        <table className={styles.tiny_table}>
           <thead>
             {/* Table header */}
             <tr>
@@ -146,7 +163,17 @@ export default function Content() { //this has the whole content of the single s
             </tr>
           </tbody>
         </table>
-    </div>
+        <div className={styles.trips}>
+          {(i) &&
+            <>
+              <h2>Täältä lähteneet matkat</h2>
+              <Trips id={i} attribute={options.start} />
+              <h2>Tänne päättyneet matkat</h2>
+              <Trips id={i} attribute={options.end} />
+            </>
+          }
+        </div>
+      </div>
     </div>
   );
 }

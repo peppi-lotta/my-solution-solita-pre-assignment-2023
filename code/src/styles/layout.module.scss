@@ -3,7 +3,8 @@ $active-green: #002920;
 $light-accent: #ccfff5;
 $light: #e5fffa;
 $primary-pink: #ffd6df;
-$active-pink: #290008;
+$active-pink: #af2540;
+$light-pink: #dbc0c7;
 $black: #000;
 $white: #ffffff;
 
@@ -60,12 +61,10 @@ $white: #ffffff;
 .container {
     display: flex;
     flex-direction: column;
-    min-height:100vh;
 }
 
 .wrap {
     margin: 50px 100px;
-    flex: 1;
     z-index: 2;
 }
 
@@ -74,8 +73,11 @@ $white: #ffffff;
     height: fit-content;
 }
 
-.styled_table, .tiny_table {
+.styled_table,
+.tiny_table {
     border-collapse: collapse;
+    margin: 0;
+    width: 100%;
 
     thead tr {
         background-color: $primary-green;
@@ -104,27 +106,43 @@ $white: #ffffff;
         border-bottom: 2px solid $primary-green;
     }
 }
+
 .tiny_table {
     width: fit-content;
-    position: absolute;
-    left: 5%;
-    top: 35%;
+    position: relative;
+    top: 170px;
     z-index: 10;
 }
 
+.scrollable_table_view {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.scrollable_table_container {
+    height: 200px;
+    overflow: scroll;
+    width: 100%;
+    tr {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+    }
+}
+
+
 .pagination {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     list-style: none;
     width: 100%;
 
     a {
         cursor: pointer;
-        color: white;
+        color: $black;
         font-size: large;
     }
-
 
     li {
         display: flex;
@@ -134,28 +152,31 @@ $white: #ffffff;
         height: 45px;
         width: fit-content;
         min-width: 45px;
-        background-color: #009879;
+        background-color: $primary-pink;
         margin: 0 5px;
         justify-content: center;
         align-items: center;
         font-size: large;
     }
+
     .text {
         width: fit-content;
         padding: 0 5px;
     }
-    .text_disabled{
+
+    .text_disabled {
         pointer-events: none;
         width: fit-content;
         padding: 0 5px;
-        background-color: #79a39b;
+        background-color: $light-pink;
     }
+
     .pageItem:hover {
-        background-color: #006450;
+        background-color: $active-pink;
     }
 
     .pageItemActive {
-        background-color: #006450;
+        background-color: $active-pink;
     }
 }
 
@@ -179,6 +200,7 @@ $white: #ffffff;
     cursor: pointer;
     color: white;
 }
+
 .basic_btn:hover {
     background-color: #006450;
 }
@@ -187,8 +209,9 @@ $white: #ffffff;
     width: 100%;
     min-height: 100%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    z-index: -1;
+    z-index: 9;
 }
+
 .map_container {
     display: block;
     position: absolute;
@@ -196,4 +219,9 @@ $white: #ffffff;
     width: 100vw;
     left: 0;
     top: 80px;
+}
+
+.trips {
+    top: 200px;
+    padding-top: 180px;
 }
