@@ -16,11 +16,11 @@ export default async function getStations(req: NextApiRequest, res: NextApiRespo
     let sqlQuery: QueryOptions;
     let q: string = `SELECT * FROM stations `;
 
-    if (order != '') {
-      q = q + `ORDER BY ${order} `;
-    }
     if (search != '') {
       q = q + `WHERE name_fi LIKE '%${search}%' OR address_fi LIKE '%${search}%' OR capacity LIKE '%${search}%' `;
+    }
+    if (order != '') {
+      q = q + `ORDER BY ${order} `;
     }
 
     q = q + `LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}`
