@@ -7,10 +7,10 @@ interface QueryOptions {
 
 export async function query(options: QueryOptions) {
     const connection = await mysql.createConnection({
-        host: process.env.HOST,
-        user: process.env.USER,
-        password: process.env.PASSWORD,
-        database: process.env.DATABASE,
+        host: process.env.NEXT_PUBLIC_HOST,
+        user: process.env.NEXT_PUBLIC_USER,
+        password: process.env.NEXT_PUBLIC_PASSWORD,
+        database: process.env.NEXT_PUBLIC_DATABASE,
     });
     try {    
         const results = await connection.execute(options.query, options.values || []);

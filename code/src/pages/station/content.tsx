@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic'
 //componen imports 
 import Trips from '@/components/trips';
+import Popular from '@/components/popular';
 
 interface Station { //defining interface for station (data)
   id: number;
@@ -46,7 +47,7 @@ export default function Content() { //this has the whole content of the single s
   //This hook is tied to from_count (and also rourer) and should only be called once at page load
   useEffect(() => {
     async function getCount() {
-      const url = 'http://localhost:3000/api/getCount'; //URL to fetch data from
+      const url = process.env.NEXT_PUBLIC_BASE_URL + 'api/getCount'; //URL to fetch data from
       const postData = {
         method: "Post", //HTTP method
         headers: { "Content-Type": "application/json" }, //headers for the request
@@ -68,7 +69,7 @@ export default function Content() { //this has the whole content of the single s
   //This hook is tied to from_count (and also rourer) and should only be called once at page load
   useEffect(() => {
     async function getCount() {
-      const url = 'http://localhost:3000/api/getCount'; //URL to fetch data from
+      const url = process.env.NEXT_PUBLIC_BASE_URL + 'api/getCount'; //URL to fetch data from
       const postData = {
         method: "Post", //HTTP method
         headers: { "Content-Type": "application/json" }, //headers for the request
@@ -91,7 +92,7 @@ export default function Content() { //this has the whole content of the single s
   useEffect(() => {
 
     async function getStation() {
-      const url = 'http://localhost:3000/api/getStation'; //URL to fetch data from
+      const url = process.env.NEXT_PUBLIC_BASE_URL + 'api/getStation'; //URL to fetch data from
       const postData = {
         method: "Post", //HTTP method
         headers: { "Content-Type": "application/json" }, //headers for the request
@@ -163,6 +164,12 @@ export default function Content() { //this has the whole content of the single s
             </tr>
           </tbody>
         </table>
+        {(i) &&
+            <>
+              <Popular id={i} type='start' />
+              <Popular id={i} type='end' />
+            </>
+          }
         <div className={styles.trips}>
           {(i) &&
             <>

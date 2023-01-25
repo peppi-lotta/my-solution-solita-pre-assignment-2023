@@ -36,7 +36,7 @@ export default function Content() { //has whole content shown in the stations pa
     //useEffect hook to fetch count of rows. This hook is tied to row_count and should only be called once at page load
     useEffect(() => {
         async function getCount() {
-            const url = 'http://localhost:3000/api/getCount'; //URL to fetch data from
+            const url = process.env.NEXT_PUBLIC_BASE_URL + 'api/getCount'; //URL to fetch data from
             const postData = {
                 method: "Post", //HTTP method
                 headers: { "Content-Type": "application/json" }, //headers for the request
@@ -58,7 +58,7 @@ export default function Content() { //has whole content shown in the stations pa
     //useEffect hook to fetch data. This hook is tied to current page number and new call is made every time page changes
     useEffect(() => {
         async function getStations() {
-            const url = 'http://localhost:3000/api/getStations'; //URL to fetch data from
+            const url = process.env.NEXT_PUBLIC_BASE_URL + 'api/getStations'; //URL to fetch data from
             const postData = {
                 method: "Post", //HTTP method
                 headers: { "Content-Type": "application/json" }, //headers for the request
@@ -123,7 +123,7 @@ export default function Content() { //has whole content shown in the stations pa
                                     <td>{station.address_fi}</td>
                                     <td>{station.capacity}</td>
                                     {/* This button takes the user to the station view page of the correct id  */}
-                                    <td><a href={"http://localhost:3000/station/" + station.id}><button className={styles.basic_btn} type="button">                
+                                    <td><a href={process.env.NEXT_PUBLIC_BASE_URL + "station/" + station.id}><button className={styles.basic_btn} type="button">                
                                     <Image
                                         src="/right-arrow.png" //get image from 'public' folder
                                         alt="woman with bike" //alternative text for the image

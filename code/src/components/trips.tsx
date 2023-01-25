@@ -31,7 +31,7 @@ const Trips: React.FC<Props> = ({ id, attribute }) => {
     useEffect(() => {
 
         async function getCount() {
-            const url = 'http://localhost:3000/api/getCount'; //URL to fetch data from
+            const url = process.env.NEXT_PUBLIC_BASE_URL + 'api/getCount'; //URL to fetch data from
             const postData = {
                 method: "Post", //HTTP method
                 headers: { "Content-Type": "application/json" }, //headers for the request
@@ -49,7 +49,7 @@ const Trips: React.FC<Props> = ({ id, attribute }) => {
 
         async function gettrips() {
 
-            const url = 'http://localhost:3000/api/getTrips';//URL to fetch data from
+            const url = process.env.NEXT_PUBLIC_BASE_URL + '/api/getTrips';//URL to fetch data from
 
             let postData;
             let body;
