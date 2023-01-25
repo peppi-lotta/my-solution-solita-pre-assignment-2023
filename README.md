@@ -12,22 +12,23 @@ This is a Next JS project that uses a local mySQL database. The data was cleaned
 
 ## Imports 
 This are what I imported to my project
-npm i dotenv
-npm i sass
-npm instal mysql2
-npm i net -S
-npm i @types/react
-npm install  @types/leaflet
-npm install react-leaflet
+- npm i dotenv
+- npm i sass
+- npm instal mysql2
+- npm i net -S
+- npm i @types/react
+- npm install  @types/leaflet
+- npm install react-leaflet
 
 ## Database
-I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. Url fetches connections are hard coded to localhost.
+I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. 
 
 This is what shoud be inderted into .env file
-HOST = {hostname}
-USER = '{usernamme}
-PASSWORD = {password}
-DATABASE = 'solita_pre_assignmentdb'
+NEXT_PUBLIC_HOST = 'localhost'
+NEXT_PUBLIC_USER = {name}
+NEXT_PUBLIC_PASSWORD = {password}
+NEXT_PUBLIC_DATABASE = 'solita_pre_assignmentdb'
+NEXT_PUBLIC_BASE_URL = 'http://localhost:3000/'
 
 
 Data folder has a zipped sql dump of my database. Import the data to server of your choosing, update the .end and run the code.
