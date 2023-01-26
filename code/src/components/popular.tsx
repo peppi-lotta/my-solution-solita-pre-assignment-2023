@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 
 interface popular { //defining interface Trip
     name_fi: string;
-    location_count: number;
+    locations_count: number;
 }
 
 interface Props { //defining Props interface
@@ -15,7 +15,7 @@ interface Props { //defining Props interface
 
 const Popular: React.FC<Props> = ({ id, type }) => {
     const [popularData, setPopularData] = useState<popular[]>([]);//state for storing trip data
-    const [i, setI] =useState(0); //here to avooid infinite loop of updates
+    const [i, setI] = useState(0); //here to avooid infinite loop of updates
 
     //useEffect hook to fetch data. This hook is tied to current page number and new call is made every time page changes
     useEffect(() => {
@@ -47,9 +47,22 @@ const Popular: React.FC<Props> = ({ id, type }) => {
     //rendering the table with station data and pagination component
     return (
         <div>
-             {popularData.map((popular) => (
-                <h2>{popular.name_fi}</h2>
-             ))}
+            <div className={styles.infobox}>
+                {(type == 'start') &&
+                    <>
+                        <strong>Suosituimmat lähtöpysäkit tänne palautetuille pyörille</strong>
+
+                    </>
+                }
+                {(type == 'end') &&
+                    <>
+                        <strong>Suosituimmat palautuspysäkit täältä lähteneille pyörille</strong>
+                    </>
+                }
+                {popularData.map((popular) => (
+                    <div>{popular.name_fi}, {popular.locations_count}</div>
+                ))}
+            </div>
         </div>
     );
 }

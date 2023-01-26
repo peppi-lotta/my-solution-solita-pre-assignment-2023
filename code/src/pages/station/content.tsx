@@ -132,44 +132,46 @@ export default function Content() { //this has the whole content of the single s
             </>
           }
         </div>
-        <table className={styles.tiny_table}>
-          <thead>
-            {/* Table header */}
-            <tr>
-              {/* Print stations data */}
-              <th>Aseman tiedot:</th>
-              <th>{station?.name_fi}/{station?.name_sw}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Osoite (Suomi)</td>
-              <td>{station?.address_fi}</td>
-            </tr>
-            <tr>
-              <td>Osoite (Ruotsi)</td>
-              <td>{station?.address_sw}</td>
-            </tr>
-            <tr>
-              <td>Kaapasiteetti</td>
-              <td>{station?.capacity}</td>
-            </tr>
-            <tr>
-              <td>Matkoja aloitettu täältä yhteensä</td>
-              <td>{from_count}</td>
-            </tr>
-            <tr>
-              <td>Matkoja lopetettu tänne yhteensä</td>
-              <td>{to_count}</td>
-            </tr>
-          </tbody>
-        </table>
-        {(i) &&
+        <div className={styles.on_map}>
+          <table className={styles.tiny_table}>
+            <thead>
+              {/* Table header */}
+              <tr>
+                {/* Print stations data */}
+                <th>Aseman tiedot:</th>
+                <th>{station?.name_fi}/{station?.name_sw}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Osoite (Suomi)</td>
+                <td>{station?.address_fi}</td>
+              </tr>
+              <tr>
+                <td>Osoite (Ruotsi)</td>
+                <td>{station?.address_sw}</td>
+              </tr>
+              <tr>
+                <td>Kaapasiteetti</td>
+                <td>{station?.capacity}</td>
+              </tr>
+              <tr>
+                <td>Matkoja aloitettu täältä yhteensä</td>
+                <td>{from_count}</td>
+              </tr>
+              <tr>
+                <td>Matkoja lopetettu tänne yhteensä</td>
+                <td>{to_count}</td>
+              </tr>
+            </tbody>
+          </table>
+          {(i) &&
             <>
               <Popular id={i} type='start' />
               <Popular id={i} type='end' />
             </>
           }
+        </div>
         <div className={styles.trips}>
           {(i) &&
             <>
@@ -181,6 +183,6 @@ export default function Content() { //this has the whole content of the single s
           }
         </div>
       </div>
-    </div>
+    </div >
   );
 }

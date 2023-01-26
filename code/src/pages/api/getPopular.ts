@@ -13,31 +13,33 @@ export default async function getPopular(req: NextApiRequest, res: NextApiRespon
     const id = req.body.id;
     
     //query options
-    let sqlQuery: QueryOptions;
+    let sqlQuery: QueryOptions = {
+      query: ''
+    };
 
     switch (type) {
-        case 'start':
-            sqlQuery = {
-                query: `SELECT s.name_fi, COUNT(t.start_location_id) AS locations_count
-                FROM trips AS t
-                JOIN stations AS s ON t.start_location_id = s.id
-                WHERE t.end_location_id = ${id}
-                GROUP BY t.start_location_id
-                ORDER BY locations_count DESC
-                LIMIT ${amount}`
-            }
-
-        case 'end':
-            sqlQuery = {
-                query: `SELECT s.name_fi, COUNT(t.end_location_id) AS locations_count
-                FROM trips AS t
-                JOIN stations AS s ON t.end_location_id = s.id
-                WHERE t.start_location_id = ${id}
-                GROUP BY t.end_location_id
-                ORDER BY locations_count DESC
-                LIMIT ${amount}`
-            }
-
+      case 'start':
+          sqlQuery = {
+              query: `SELECT s.name_fi, COUNT(t.start_location_id) AS locations_count
+              FROM trips AS t
+              JOIN stations AS s ON t.start_location_id = s.id
+              WHERE t.end_location_id = ${id}
+              GROUP BY t.start_location_id
+              ORDER BY locations_count DESC
+              LIMIT ${amount}`
+          }
+          break;
+      case 'end':
+          sqlQuery = {
+              query: `SELECT s.name_fi, COUNT(t.end_location_id) AS locations_count
+              FROM trips AS t
+              JOIN stations AS s ON t.end_location_id = s.id
+              WHERE t.start_location_id = ${id}
+              GROUP BY t.end_location_id
+              ORDER BY locations_count DESC
+              LIMIT ${amount}`
+          }
+          break;
     }
 
     const [results] = await query(sqlQuery); //executing query
