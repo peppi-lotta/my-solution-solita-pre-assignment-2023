@@ -3,32 +3,35 @@
 Working based on this assignment:
 https://github.com/solita/dev-academy-2023-exercise
 
-This is a Next JS project that uses a local mySQL database. The data was cleaned up with Python code that out puts a csv file. Instruction on how to use the file is provided in this read me. 
+This is a Next JS project that uses a mySQL database. The data was cleaned up with Python code that out puts a csv file. The code file has all that is needed to run the program. Data file has a database sql dump and a python code to make trips data compatible with my database. 
 
-## Load Versions
+## Versions
 - Node: 18.13.0
 - NextJS: 8.5.5
 - mySQL: 8.0.31
 
 ## Imports 
 This are what I imported to my project
+```
 - npm install react react-dom next @next/font typescript @types/react @types/node @types/react-dom
 - npm i dotenv sass mysql2 @types/react @types/leaflet react-leaflet
 - npm i net -S
+```
 
 ## Database
 I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. 
-
-NEXT_PUBLIC_HOST = {host} \n
+```
+NEXT_PUBLIC_HOST = {host} 
 NEXT_PUBLIC_USER = {username}
 NEXT_PUBLIC_PASSWORD = {password}
 NEXT_PUBLIC_DATABASE = {database_name}
 NEXT_PUBLIC_BASE_URL = 'http://localhost:3000/'
-
+```
 
 Data folder has a zipped sql dump of my database. Import the data to server of your choosing, update the .env and run the code.
 
 #### Create codes for tables
+```
 CREATE TABLE `stations` (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
 	`name_fi` VARCHAR(255) NOT NULL DEFAULT '""' COLLATE 'utf8mb4_0900_ai_ci',
@@ -48,7 +51,8 @@ COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=903
 ;
-
+```
+```
 CREATE TABLE `trips` (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
 	`start_time` DATETIME NOT NULL,
@@ -65,7 +69,7 @@ COLLATE='utf8mb4_0900_ai_ci'
 ENGINE=InnoDB
 AUTO_INCREMENT=4442316
 ;
-
+```
 
 ## Data folder
 In the data folder there is a python file. It can be run and it will output a csv that is compatible with the database. 
