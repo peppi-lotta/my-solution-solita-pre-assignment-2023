@@ -9,10 +9,11 @@ import Content from './stations';
   <link rel="icon" href="/logo.png" />
 </Head>
 
-export default function Home() {
+export default function Home() {//Higest level componen that just places components on page
   return (
-    <div className={styles.container}>
+    <div className={styles.container}> 
       <Header />
+      {/* List of stations */}
       <Content />
       <Footer />
     </div>

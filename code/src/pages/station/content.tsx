@@ -165,6 +165,7 @@ export default function Content() { //this has the whole content of the single s
               </tr>
             </tbody>
           </table>
+          {/* Most popular stations trips retuen and starting stations */}
           {(i) &&
             <>
               <Popular id={i} type='start' />
@@ -173,6 +174,7 @@ export default function Content() { //this has the whole content of the single s
           }
         </div>
         <div className={styles.trips}>
+          {/* All the trips */}
           {(i) &&
             <>
               <h2>Täältä lähteneet matkat</h2>

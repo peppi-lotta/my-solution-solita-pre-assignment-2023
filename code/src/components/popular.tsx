@@ -1,23 +1,22 @@
 
-import getPopular from '@/pages/api/getPopular';
 import styles from '@/styles/layout.module.scss'
 import React, { useState, useEffect } from 'react';
 
-interface popular { //defining interface Trip
+interface popular { //defining interface Popular
     name_fi: string;
     locations_count: number;
 }
 
 interface Props { //defining Props interface
-    id: number; //total number of items
-    type: string; //number of items per page
+    id: number; //stations id
+    type: string; //start or en
 }
 
 const Popular: React.FC<Props> = ({ id, type }) => {
-    const [popularData, setPopularData] = useState<popular[]>([]);//state for storing trip data
+    const [popularData, setPopularData] = useState<popular[]>([]);//state for storing popular stations data
     const [i, setI] = useState(0); //here to avooid infinite loop of updates
 
-    //useEffect hook to fetch data. This hook is tied to current page number and new call is made every time page changes
+    //useEffect hook to fetch data. This hook is tied to a value i to avoid an infinite loop
     useEffect(() => {
 
         async function getPopular() {
@@ -26,7 +25,7 @@ const Popular: React.FC<Props> = ({ id, type }) => {
                 method: "Post", //HTTP method
                 headers: { "Content-Type": "application/json" }, //headers for the request
                 body: JSON.stringify({
-                    id: id, //getCount of station's trips
+                    id: id,
                     type: type
                 }),
             }
@@ -44,10 +43,11 @@ const Popular: React.FC<Props> = ({ id, type }) => {
 
     }, [i]);
 
-    //rendering the table with station data and pagination component
+    //rendering
     return (
         <div>
             <div className={styles.infobox}>
+                {/*Choose text based on type*/}
                 {(type == 'start') &&
                     <>
                         <strong>Suosituimmat lähtöpysäkit tänne palautetuille pyörille</strong>

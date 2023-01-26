@@ -5,11 +5,11 @@ interface QueryOptions { //defining interface for query options
   query: string;
 }
 
-//get 25 trips based on current page
+//get 5 most popular return or stating location of a station's trips
 export default async function getPopular(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const amount = 5; //page number from the request body
-    const type = req.body.type;
+    const amount = 5; //limit of results
+    const type = req.body.type; //starts ot end
     const id = req.body.id;
     
     //query options

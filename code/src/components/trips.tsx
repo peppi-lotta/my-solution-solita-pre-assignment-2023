@@ -90,7 +90,7 @@ const Trips: React.FC<Props> = ({ id, attribute }) => {
     }, [currentPage]);
 
     //function to handle page changes
-    const onPageChange = (page) => {
+    const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
 

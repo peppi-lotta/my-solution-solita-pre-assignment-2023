@@ -29,7 +29,7 @@ export default function Content() { //has whole content shown in the stations pa
     const [search, setSearch] = useState('');
 
     //function to handle page changes
-    const onPageChange = (page) => {
+    const onPageChange = (page: number) => {
         setCurrentPage(page);
     };
 

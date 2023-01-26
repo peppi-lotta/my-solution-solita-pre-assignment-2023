@@ -16,6 +16,7 @@ export default async function getStations(req: NextApiRequest, res: NextApiRespo
     let sqlQuery: QueryOptions;
     let q: string = `SELECT * FROM stations `;
 
+    //build the query based on the values given
     if (search != '') {
       q = q + `WHERE name_fi LIKE '%${search}%' OR address_fi LIKE '%${search}%' OR capacity LIKE '%${search}%' `;
     }

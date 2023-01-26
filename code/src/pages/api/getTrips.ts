@@ -9,8 +9,8 @@ interface QueryOptions { //defining interface for query options
 export default async function getTrips(req: NextApiRequest, res: NextApiResponse) {
   try {
     const page = req.body.page; //page number from the request body
-    const attribute = req.body.attribute;
-    const value = req.body.value;
+    const attribute = req.body.attribute; //column of table
+    const value = req.body.value; // the value of the given column
     const pageSize = req.body.pageSize//number of items per page
     
     //query options
