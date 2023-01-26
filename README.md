@@ -6,7 +6,7 @@ https://github.com/solita/dev-academy-2023-exercise
 This is a Next JS project that uses a local mySQL database. The data was cleaned up with Python code that out puts a csv file. Instruction on how to use the file is provided in this read me. 
 
 ## Load Versions
-- Node: 16.15.0
+- Node: 18.13.0
 - NextJS: 8.5.5
 - mySQL: 8.0.31
 
@@ -19,7 +19,7 @@ This are what I imported to my project
 ## Database
 I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. 
 
-NEXT_PUBLIC_HOST = {host}
+NEXT_PUBLIC_HOST = {host} \n
 NEXT_PUBLIC_USER = {username}
 NEXT_PUBLIC_PASSWORD = {password}
 NEXT_PUBLIC_DATABASE = {database_name}
