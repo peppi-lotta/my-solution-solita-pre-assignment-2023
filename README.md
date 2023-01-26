@@ -20,7 +20,6 @@ I used a local mySQL database to store the data. I stored the login info to .env
 
 NEXT_PUBLIC_HOST = {host}
 NEXT_PUBLIC_USER = {username}
-NEXT_PUBLIC_PORT = {port number}
 NEXT_PUBLIC_PASSWORD = {password}
 NEXT_PUBLIC_DATABASE = {database_name}
 NEXT_PUBLIC_BASE_URL = 'http://localhost:3000/'
@@ -28,6 +27,7 @@ NEXT_PUBLIC_BASE_URL = 'http://localhost:3000/'
 
 Data folder has a zipped sql dump of my database. Import the data to server of your choosing, update the .env and run the code.
 
+#### Create codes for tables
 CREATE TABLE `stations` (
 	`id` INT(10) NOT NULL AUTO_INCREMENT,
 	`name_fi` VARCHAR(255) NOT NULL DEFAULT '""' COLLATE 'utf8mb4_0900_ai_ci',
