@@ -12,6 +12,7 @@ This is a Next JS project that uses a local mySQL database. The data was cleaned
 
 ## Imports 
 This are what I imported to my project
+- npm install react react-dom next @next/font typescript @types/react @types/node @types/react-dom
 - npm i dotenv sass mysql2 @types/react @types/leaflet react-leaflet
 - npm i net -S
 
