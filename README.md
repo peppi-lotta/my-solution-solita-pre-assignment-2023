@@ -1,9 +1,9 @@
 # my-solution-solita-pre-assignment-2023
 
+This is a Next JS project that uses a mySQL database. The data was cleaned up with Python code that out puts a csv file. The code file has all that is needed to run the program. Data file has a database sql dump and a python code to make trips data compatible with my database. 
+
 Working based on this assignment:
 https://github.com/solita/dev-academy-2023-exercise
-
-This is a Next JS project that uses a mySQL database. The data was cleaned up with Python code that out puts a csv file. The code file has all that is needed to run the program. Data file has a database sql dump and a python code to make trips data compatible with my database. 
 
 ## Versions
 - Node: 18.13.0
@@ -13,20 +13,20 @@ This is a Next JS project that uses a mySQL database. The data was cleaned up wi
 ## Imports 
 This are what I imported to my project
 ```
-- npm install react react-dom next @next/font typescript @types/react @types/node @types/react-dom dotenv sass mysql2 @types/leaflet react-leaflet net
+npm install react react-dom next @next/font typescript @types/react @types/node @types/react-dom dotenv sass mysql2 @types/leaflet react-leaflet net
 ```
 
 ## Database
-I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. 
+I used a local mySQL database to store the data. I stored the login info to .env file. (My login information was in the wrong place in my initial commit so my mySQL password can be found. Not to worry I have since changed it.) The port used is the default 3306 port. Data folder has a zipped sql dump of my database. 
+
+Make a local database. Create tables with the provided create codes and load the sql file to that database.
 ```
-NEXT_PUBLIC_HOST = {host} 
+NEXT_PUBLIC_HOST = localhost 
 NEXT_PUBLIC_USER = {username}
 NEXT_PUBLIC_PASSWORD = {password}
 NEXT_PUBLIC_DATABASE = {database_name}
 NEXT_PUBLIC_BASE_URL = 'http://localhost:3000/'
 ```
-
-Data folder has a zipped sql dump of my database. Import the data to server of your choosing, update the .env and run the code.
 
 #### Create codes for tables
 ```
